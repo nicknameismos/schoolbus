@@ -1,0 +1,8 @@
+{
+  "name": "shoolbus",
+  "app_id": "83cfd81c",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
