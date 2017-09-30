@@ -1,7 +1,7 @@
 import { HomePage } from './../home/home';
 import { Facebook, FacebookLoginResponse } from '@ionic-native/facebook';
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { LoadingController, IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { AuthenService, SignupModel, SigninModel } from '@ngcommerce/core';
 
 /**
@@ -23,24 +23,22 @@ export class LoginPage {
     tel: '',
     email: '',
     username: '',
-    password: ''
+    password: '',
+    confirmPassword: ''
   };
 
   credentail: any = {};
 
+  @ViewChild(Slides) slides: Slides;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private fb: Facebook,
-    public authenService: AuthenService
+    public authenService: AuthenService,
+    public loadingCtrl: LoadingController
   ) {
   }
-  @ViewChild(Slides) slides: Slides;
 
-
-  // slide() {
-  //   this.slides.slideTo(2, 500);
-  // }
   loginFacebook() {
     this.fb.login(['public_profile', 'email'])
       .then((res: FacebookLoginResponse) =>
@@ -53,23 +51,25 @@ export class LoginPage {
       .catch(e => {
         alert(JSON.stringify(e));
       });
-
   }
   registerFb(data) {
     // alert(JSON.stringify(data));
     this.dataUser.firstName = data.first_name;
     this.dataUser.lastName = data.last_name;
     this.dataUser.email = data.email;
-    this.dataUser.username = data.email;
+    if (!this.dataUser.username) {
+      this.dataUser.username = data.email;
+    }
     this.slides.slideTo(1, 500, this.dataUser);
 
   }
+
   submit(dataUser) {
     console.log(this.dataUser);
     this.authenService.signUp(this.dataUser).then((data) => {
       this.navCtrl.push(HomePage);
       this.dataUser = '';
-      
+
     }, (error) => {
       console.error(error);
       alert(JSON.stringify(error));
@@ -80,11 +80,16 @@ export class LoginPage {
     this.credentail.username = this.dataUser.email;
     this.credentail.password = this.dataUser.password;
 
+    let loading = this.loadingCtrl.create();
+    loading.present();
+
     this.authenService.signIn(this.credentail).then((data) => {
       console.log(data);
+      loading.dismiss();
       this.navCtrl.push(HomePage);
 
     }, (error) => {
+      loading.dismiss();
       console.error(error);
       alert(JSON.stringify(error));
     })
@@ -94,7 +99,8 @@ export class LoginPage {
     console.log(dataUser);
     this.slides.slideTo(2, 500, dataUser);
   }
-  register(){
+  
+  register() {
     this.slides.slideTo(1, 500);
   }
 }
