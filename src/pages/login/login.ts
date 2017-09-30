@@ -64,7 +64,10 @@ export class LoginPage {
 
   submit(dataUser) {
     console.log(this.dataUser);
+    let loading = this.loadingCtrl.create();
+    loading.present();
     this.authenService.signUp(this.dataUser).then((data) => {
+      loading.dismiss();
       this.dataUser.firstName = '';
       this.dataUser.lastName = '';
       this.dataUser.email = '';
@@ -75,6 +78,7 @@ export class LoginPage {
       this.navCtrl.push(HomePage);
 
     }, (error) => {
+      loading.dismiss();
       console.error(error);
       alert(JSON.stringify(error));
     })
@@ -118,8 +122,7 @@ export class LoginPage {
     this.slides.slideTo(0, 500);
 
   }
-  backTo(){
+  backTo() {
     this.slides.slideTo(1, 500);
-    
   }
 }
