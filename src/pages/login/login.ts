@@ -110,6 +110,11 @@ export class LoginPage {
     this.slides.slideTo(1, 500);
   }
   backToLogin() {
+    this.dataUser.firstName = '';
+    this.dataUser.lastName = '';
+    this.dataUser.email = '';
+    this.dataUser.username = '';
+    this.dataUser.password = '';
     this.slides.slideTo(0, 500);
 
   }
