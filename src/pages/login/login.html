@@ -9,12 +9,12 @@
       <img class="logo" src="assets/icon.png" />
       <div padding>
         <ion-item>
-          <ion-input type="text" placeholder="Username" [(ngModel)]="dataUser.email"></ion-input>
+          <ion-input type="text" placeholder="Username" [(ngModel)]="credentail.username"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-input type="password" placeholder="Password" [(ngModel)]="dataUser.password"></ion-input>
+          <ion-input type="password" placeholder="Password" [(ngModel)]="credentail.password"></ion-input>
         </ion-item>
-        <button ion-button block outline (click)="logIn()" color="default" class="login-button">Login</button>
+        <button ion-button block outline (click)="logIn(credentail)" color="default" class="login-button">Login</button>
         <button ion-button block (click)="loginFacebook()" color="default" class="login-button"><ion-icon name="logo-facebook"></ion-icon> Login with Facebook</button>
       </div>
     </ion-slide>
@@ -30,7 +30,11 @@
         <!-- <ion-item>
           <ion-input type="password" placeholder="confirm password" [(ngModel)]="dataUser.confirmPassword"></ion-input>
         </ion-item> -->
-        <button ion-button block (click)="next(dataUser)" color="default" [disabled]="!dataUser.password">Next</button>
+        <div>
+          <button ion-button (click)="backToLogin()" color="default">Back</button>
+          <button ion-button (click)="next(dataUser)" color="default" [disabled]="!dataUser.password">Next</button>
+        </div>
+
       </div>
     </ion-slide>
 
@@ -48,7 +52,9 @@
         <!-- <ion-item>
           <ion-input type="text" placeholder="tel" [(ngModel)]="dataUser.tel"></ion-input>
         </ion-item> -->
-        <button ion-button block (click)="submit(dataUser)" color="default">Submit</button>
+        <button ion-button (click)="backTo()" color="default">Back</button>
+        
+        <button ion-button (click)="submit(dataUser)" color="default">Submit</button>
       </div>
     </ion-slide>
   </ion-slides>

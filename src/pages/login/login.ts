@@ -20,11 +20,9 @@ export class LoginPage {
   dataUser: any = {
     firstName: '',
     lastName: '',
-    tel: '',
     email: '',
     username: '',
-    password: '',
-    confirmPassword: ''
+    password: ''
   };
 
   credentail: any = {};
@@ -67,8 +65,14 @@ export class LoginPage {
   submit(dataUser) {
     console.log(this.dataUser);
     this.authenService.signUp(this.dataUser).then((data) => {
+      this.dataUser.firstName = '';
+      this.dataUser.lastName = '';
+      this.dataUser.email = '';
+      this.dataUser.username = '';
+      this.dataUser.password = '';
+      // this.slides.slideTo(0, 500);
+
       this.navCtrl.push(HomePage);
-      this.dataUser = '';
 
     }, (error) => {
       console.error(error);
@@ -77,15 +81,15 @@ export class LoginPage {
   }
 
   logIn() {
-    this.credentail.username = this.dataUser.email;
-    this.credentail.password = this.dataUser.password;
-
     let loading = this.loadingCtrl.create();
     loading.present();
 
     this.authenService.signIn(this.credentail).then((data) => {
       console.log(data);
       loading.dismiss();
+      this.credentail.username = '';
+      this.credentail.password = '';
+
       this.navCtrl.push(HomePage);
 
     }, (error) => {
@@ -99,8 +103,18 @@ export class LoginPage {
     console.log(dataUser);
     this.slides.slideTo(2, 500, dataUser);
   }
-  
+
   register() {
+    this.credentail.username = '';
+    this.credentail.password = '';
     this.slides.slideTo(1, 500);
+  }
+  backToLogin() {
+    this.slides.slideTo(0, 500);
+
+  }
+  backTo(){
+    this.slides.slideTo(1, 500);
+    
   }
 }
