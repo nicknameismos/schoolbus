@@ -1,3 +1,4 @@
+import { WalkthroughPage } from './../pages/walkthrough/walkthrough';
 import { LoginPage } from './../pages/login/login';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -16,7 +17,8 @@ import { HttpModule } from '@angular/http';
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    WalkthroughPage
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,8 @@ import { HttpModule } from '@angular/http';
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    WalkthroughPage
   ],
   providers: [
     StatusBar,
